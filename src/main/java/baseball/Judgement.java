@@ -1,5 +1,6 @@
 package baseball;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Judgement {
@@ -9,7 +10,7 @@ public class Judgement {
     public String matchNumbers(List<Integer> computerNumbers, String playerNumbers) {
         int idx = 0;
         for(int z = 0; z < playerNumbers.length(); z++) {
-            compareNumbers(computerNumbers, playerNumbers.charAt(z) - '0', idx, z);
+            compareNumbers(computerNumbers, playerNumbers, idx, z);
             idx++;
         }
         return getScoreResult().toString();
@@ -19,28 +20,32 @@ public class Judgement {
         if(strikeCount == 0 && ballCount == 0) {
             sb.append("낫싱");
         }
+        if(ballCount != 0) {
+            sb.append(ballCount+"볼 ");
+        }
         if(strikeCount != 0) {
             sb.append(strikeCount+"스트라이크");
         }
-        if(ballCount != 0) {
-            sb.append(ballCount+"볼");
-        }
+
         return sb;
     }
 
-    private void compareNumbers(List<Integer> ab, int playerNumbers, int idx, int z) {
-        if(ab.get(idx) != 0) {
-            compareNumbersAndIndex(ab, playerNumbers, idx, z);
-        }
+    private void compareNumbers(List<Integer> ab, String playerNumbers, int idx, int z) {
+        compareNumbersAndIndex(ab, playerNumbers, idx, z);
     }
-    private void compareNumbersAndIndex(List<Integer> ab, int playerNumbers, int idx, int z) {
-        if(ab.get(idx) == playerNumbers && idx == z) {
+    private void compareNumbersAndIndex(List<Integer> ab, String playerNumbers, int idx, int z) {
+        if(ab.get(idx) == playerNumbers.charAt(z) - '0' && idx == z) {
             strikeCount++;
-            ab.set(idx,0);
-        } else if(ab.get(idx) == playerNumbers && idx != z) {
-            ballCount++;
-            ab.set(idx,0);
+        } else {
+            countBall(ab,playerNumbers,idx,z);
         }
     }
+
+    private void countBall(List<Integer> ab, String playerNumbers, int idx, int z) {
+        if(ab.contains(playerNumbers.charAt(z) - '0')) {
+            ballCount++;
+        }
+    }
+
 
 }
