@@ -1,8 +1,7 @@
-package baseball;
+package baseball.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import baseball.entity.ComputerMachine;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

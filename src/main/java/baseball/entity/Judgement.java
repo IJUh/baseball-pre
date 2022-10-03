@@ -5,15 +5,16 @@ import java.util.List;
 public class Judgement {
     private int strikeCount = 0;
     private int ballCount = 0;
-    private StringBuilder sb = new StringBuilder();
+    private StringBuilder sb;
+
     public String matchNumbers(List<Integer> computerNumbers, String playerNumbers) {
+        sb = new StringBuilder();
         int idx = 0;
         for (int z = 0; z < playerNumbers.length(); z++) {
             compareNumbers(computerNumbers, playerNumbers, idx, z);
             idx++;
         }
-        getScoreResult();
-        return sb.toString();
+        return getScoreResult();
     }
 
     private void compareNumbers(List<Integer> computerNumbers, String playerNumbers, int idx, int z) {
@@ -34,16 +35,18 @@ public class Judgement {
             ballCount++;
         }
     }
-    private void getScoreResult() {
-        if (strikeCount == 0 && ballCount == 0) {
-            sb.append("낫싱");
+
+    private String getScoreResult() {
+        if (strikeCount != 0 && ballCount != 0) {
+            return sb.append(ballCount).append("볼 ").append(strikeCount).append("스트라이크").toString();
         }
         if (ballCount != 0) {
-            sb.append(ballCount).append("볼 ");
+            return sb.append(ballCount).append("볼").toString();
         }
         if (strikeCount != 0) {
-            sb.append(strikeCount).append("스트라이크");
+            return sb.append(strikeCount).append("스트라이크").toString();
         }
+        return sb.append("낫싱").toString();
     }
 
 }
