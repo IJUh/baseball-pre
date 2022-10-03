@@ -5,17 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
+
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class ComputerMachine {
 
     private List<Integer> randomThreeNumbers;
-
     public List<Integer> makeThreeNumbers() {
-        return Randoms.pickUniqueNumbersInRange(1,9,3);
+        randomThreeNumbers = new ArrayList<>();
+        for(int idx = 0; idx < 3; idx++) {
+            randomThreeNumbers.add(Randoms.pickNumberInRange(1,9));
+        }
+        return randomThreeNumbers;
     }
 
 }
